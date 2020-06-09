@@ -30,11 +30,11 @@ body {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+  margin-top: 24px;
 }
 
 .logo {
-  width: 24px;
-  height: 24px;
+  width: 36px;
+  height: 36px;
 }
 </style>
