@@ -1,5 +1,6 @@
 <template>
   <div class="control-bar">
+    <div class="padding-at-start" />
     <div class="pc-video-control-bar-icon" @click="onTogglePlayPause">
       <IcoPlay v-if="isPlaying" />
       <IcoPause v-else />
@@ -9,16 +10,18 @@
     </div>
     <div class="control-bar-space" />
     <VolumeControlBar />
+    <ResolutionPicker />
   </div>
 </template>
 
 <script>
 // import PlayPauseBarIcon from './components/PlayPauseBarIcon'
-import VolumeControlBar from './components/VolumeControlBar'
 
 import IcoPlay from '../icons/IcoPlay'
 import IcoPause from '../icons/IcoPause'
 import IcoRefresh from '../icons/IcoRefresh'
+import VolumeControlBar from './components/VolumeControlBar'
+import ResolutionPicker from './components/ResolutionPicker'
 
 export default {
   components: {
@@ -26,7 +29,8 @@ export default {
     IcoPlay,
     IcoPause,
     IcoRefresh,
-    VolumeControlBar
+    VolumeControlBar,
+    ResolutionPicker
   },
   data() {
     return {
@@ -68,8 +72,9 @@ export default {
   justify-content: space-around;
   align-items: center;
 
-  padding-left 18px
-  padding-right 18px
+  > .padding-at-start
+    width 12px
+
   > .control-bar-space
     flex 1
 </style>

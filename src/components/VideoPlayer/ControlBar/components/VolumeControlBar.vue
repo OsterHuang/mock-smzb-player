@@ -1,6 +1,6 @@
 <template>
   <div class="volume-control-bar">
-    <div class="volume-control-bar-icon pc-video-control-bar-icon">
+    <div class="volume-control-bar-icon pc-video-control-bar-icon" @click="onToggleVolume">
       <IcoVolumeMax v-if="isMax" />
       <IcoVolumeMed v-if="isMed" />
       <IcoVolumeLow v-if="isLow" />
@@ -26,6 +26,9 @@ import IcoVolumeMed from '../../icons/IcoVolumeMed'
 import IcoVolumeLow from '../../icons/IcoVolumeLow'
 import IcoVolumeMin from '../../icons/IcoVolumeMin'
 
+/**
+ * 大網比較適用放這個元件，空間比較大
+ */
 export default {
   components: {
     IcoVolumeMax,
@@ -42,6 +45,7 @@ export default {
   data() {
     return {
       barValue: this.volume,
+      previousBarValue: this.volume
     }
   },
   computed: {
@@ -52,21 +56,29 @@ export default {
       `
     },
     isMax() {
-      return this.barValue >= 75
+      return this.barValue >= 100
     },
     isMed() {
-      return this.barValue < 75 && this.barValue >= 50
+      return this.barValue < 100 && this.barValue >= 55
     },
     isLow() {
-      return this.barValue < 50 && this.barValue >= 25
+      return this.barValue < 55 && this.barValue >= 2
     },
     isMin() {
-      return this.barValue < 25 && this.barValue >= 0
+      return this.barValue <= 2
     }
   },
   methods: {
     onTouchStart() {},
-    onTouchEnd() {}
+    onTouchEnd() {},
+    onToggleVolume() {
+      if (this.barValue >= 2) {
+        this.previousBarValue = this.barValue
+        this.barValue = 0
+      } else {
+        this.barValue = this.previousBarValue
+      }
+    }
   }
 }
 </script>
@@ -87,10 +99,13 @@ thumb-class()
 
 .volume-control-bar
   display flex
-  width 130px
+  align-items center
+  width 140px
 
   .volume-control-bar-icon
     width 24px
+    svg
+      width 24px
 
   .volume-control-bar-slider
     -webkit-appearance: none;
@@ -108,5 +123,5 @@ thumb-class()
       thumb-class()
     &::-ms-thumb
       thumb-class()
-  
+
 </style>
