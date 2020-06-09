@@ -56,6 +56,7 @@ thumb-class()
 .progress-bar
   position relative
   width 100%
+  height 19px
   .progress-bar-slider
     -webkit-appearance: none;
     outline: none;

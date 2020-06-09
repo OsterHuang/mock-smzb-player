@@ -1,0 +1,8 @@
+<template>
+  <svg id="icon-shrink" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+    <path d="M18 14h13l-5-5 6-6-3-3-6 6-5-5z" />
+    <path d="M18 18v13l5-5 6 6 3-3-6-6 5-5z" />
+    <path d="M14 18h-13l5 5-6 6 3 3 6-6 5 5z" />
+    <path d="M14 14v-13l-5 5-6-6-3 3 6 6-5 5z" />
+  </svg>
+</template>
