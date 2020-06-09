@@ -1,7 +1,7 @@
 <template>
   <div class="status-box" @click="handleToggle">
-    <img v-show="status === 'play'" src="./ico-play.svg">
-    <img v-show="status === 'pause'" src="./ico-pause.svg">
+    <img v-show="status === 'play'" src="../icons/ico-circle-play.svg">
+    <img v-show="status === 'pause'" src="../icons/ico-circle-pause.svg">
   </div>
 </template>
 

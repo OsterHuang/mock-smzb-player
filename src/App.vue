@@ -3,18 +3,21 @@
     <img class="logo" alt="Vue logo" src="./assets/logo.png">
     <StatusBox />
     <ProgressBar />
+    <ControlBar />
   </div>
 </template>
 
 <script>
 import StatusBox from './components/VideoPlayer/StatusBox'
 import ProgressBar from './components/VideoPlayer/ProgressBar'
+import ControlBar from './components/VideoPlayer/ControlBar'
 
 export default {
   name: 'App',
   components: {
     StatusBox,
-    ProgressBar
+    ProgressBar,
+    ControlBar
   }
 }
 </script>
