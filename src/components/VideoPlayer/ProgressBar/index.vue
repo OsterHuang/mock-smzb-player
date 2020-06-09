@@ -2,49 +2,87 @@
   <div class="progress-bar">
     <input
       ref="videoProgress"
-      v-model="videoProgressRange"
-      class="live-control-bar-video-progress-range-bar"
+      v-model="barValue"
+      class="progress-bar-slider"
       type="range"
       min="0"
       max="100"
       step="1"
-      @touchstart="onMouseDownProgress"
-      @touchend="onMouseUpProgress"
+      :style="slideBackground"
+      @touchstart="onTouchStart"
+      @touchend="onTouchEnd"
     >
   </div>
 </template>
 
 <script>
 export default {
-
+  name: 'ProgressBar',
+  data() {
+    return {
+      barValue: 0,
+    }
+  },
+  computed: {
+    slideBackground() {
+      return `background-image: -webkit-linear-gradient(left, #c30101 0%, #c30101 ${this.barValue}%, #fff ${this.barValue}%, #fff 100%);
+        -moz-linear-gradient(left, #c30101 0%, #c30101 ${this.barValue}%, #fff ${this.barValue}%, #fff 100%);
+        -ms-linear-gradient(left, #c30101 0%, #c30101 ${this.barValue}%, #fff ${this.barValue}%, #fff 100%);
+      `
+    }
+  },
+  mounted() {
+    // Trigger watch barValue
+    this.barValue = 40
+  },
+  methods: {
+    onTouchStart() {},
+    onTouchEnd() {}
+  }
 }
 </script>
 
 <style lang="stylus" scoped>
+thumb-class()
+  -webkit-appearance: none;
+  width: 15px;
+  height: 15px;
+  background: #f4f4f4;
+  border: 1px solid #aaa;
+  border-radius: 50%;
+  transition: 0.1s;
+  cursor: pointer;
+
 .progress-bar
   position relative
-  height 6px
-
-  background-color white
-  border 1px #ccc solid
   width 100%
+  .progress-bar-slider
+    -webkit-appearance: none;
+    outline: none;
+    width: 100%;
+    height: 3px;
+    margin: 0px;
+    transition: 0.1s;
+    position: relative;
+    top: 3px;
+    &::-webkit-slider-thumb
+      thumb-class()
+    &::-moz-range-thumb
+      thumb-class()
+    &::-ms-thumb
+      thumb-class()
 
-  .progress-bar-value
-    position absolute
-    height 100%
-    width 30%
-    top 0px
-    left 0px
-    background-color #c30101
-  .progress-bar-circle
-    position absolute
-    top -5px
+  .progress-bar-slider::-webkit-slider-thumb:hover
+    /* -webkit-appearance: none; */
     width: 15px;
     height: 15px;
-    background: #f4f4f4;
+    /* background: #f4f4f4;
     border: 1px solid #aaa;
     border-radius: 50%;
     transition: 0.1s;
-    cursor: pointer;
+    cursor: pointer; */
+
+  .progress-bar-slider:hover
+    height: 5px;
 
 </style>
