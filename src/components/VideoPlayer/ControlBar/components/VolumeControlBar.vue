@@ -1,8 +1,14 @@
 <template>
-  <div class="progress-bar">
+  <div class="volume-control-bar">
+    <div class="volume-control-bar-icon pc-video-control-bar-icon">
+      <IcoVolumeMax v-if="isMax" />
+      <IcoVolumeMed v-if="isMed" />
+      <IcoVolumeLow v-if="isLow" />
+      <IcoVolumeMin v-if="isMin" />
+    </div>
     <input
       v-model="barValue"
-      class="progress-bar-slider"
+      class="volume-control-bar-slider"
       type="range"
       min="0"
       max="100"
@@ -15,11 +21,27 @@
 </template>
 
 <script>
+import IcoVolumeMax from '../../icons/IcoVolumeMax'
+import IcoVolumeMed from '../../icons/IcoVolumeMed'
+import IcoVolumeLow from '../../icons/IcoVolumeLow'
+import IcoVolumeMin from '../../icons/IcoVolumeMin'
+
 export default {
-  name: 'ProgressBar',
+  components: {
+    IcoVolumeMax,
+    IcoVolumeMed,
+    IcoVolumeLow,
+    IcoVolumeMin
+  },
+  props: {
+    volume: {
+      type: Number,
+      default: 60
+    }
+  },
   data() {
     return {
-      barValue: 0,
+      barValue: this.volume,
     }
   },
   computed: {
@@ -28,11 +50,19 @@ export default {
         -moz-linear-gradient(left, #c30101 0%, #c30101 ${this.barValue}%, #fff ${this.barValue}%, #fff 100%);
         -ms-linear-gradient(left, #c30101 0%, #c30101 ${this.barValue}%, #fff ${this.barValue}%, #fff 100%);
       `
+    },
+    isMax() {
+      return this.barValue >= 75
+    },
+    isMed() {
+      return this.barValue < 75 && this.barValue >= 50
+    },
+    isLow() {
+      return this.barValue < 50 && this.barValue >= 25
+    },
+    isMin() {
+      return this.barValue < 25 && this.barValue >= 0
     }
-  },
-  mounted() {
-    // Trigger watch barValue
-    this.barValue = 40
   },
   methods: {
     onTouchStart() {},
@@ -55,18 +85,22 @@ thumb-class()
     width: 15px;
     height: 15px;
 
-.progress-bar
-  position relative
-  width 100%
-  height 19px
-  .progress-bar-slider
+.volume-control-bar
+  display flex
+  width 130px
+
+  .volume-control-bar-icon
+    width 24px
+
+  .volume-control-bar-slider
     -webkit-appearance: none;
     outline: none;
-    width: 100%;
-    height: 3px;
-    margin: 0px;
-    transition: 0.1s;
-    position: relative;
+    border-radius: 5px;
+    width: 100px;
+    height: 7px;
+    outline: 0;
+    margin-right: 10px;
+    transition: .1s;
     top: 3px;
     &::-webkit-slider-thumb
       thumb-class()
@@ -74,8 +108,5 @@ thumb-class()
       thumb-class()
     &::-ms-thumb
       thumb-class()
-
-    &:hover
-      height: 5px;
-
+  
 </style>

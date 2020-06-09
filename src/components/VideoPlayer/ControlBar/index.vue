@@ -1,19 +1,20 @@
 <template>
   <div class="control-bar">
-    This is control-bar
-    <div class="control-bar-icon" @click="onTogglePlayPause">
+    <div class="pc-video-control-bar-icon" @click="onTogglePlayPause">
       <IcoPlay v-if="isPlaying" />
       <IcoPause v-else />
     </div>
-    <div class="control-bar-icon">
+    <div class="pc-video-control-bar-icon">
       <IcoRefresh />
     </div>
     <div class="control-bar-space" />
+    <VolumeControlBar />
   </div>
 </template>
 
 <script>
 // import PlayPauseBarIcon from './components/PlayPauseBarIcon'
+import VolumeControlBar from './components/VolumeControlBar'
 
 import IcoPlay from '../icons/IcoPlay'
 import IcoPause from '../icons/IcoPause'
@@ -24,7 +25,8 @@ export default {
     // PlayPauseBarIcon,
     IcoPlay,
     IcoPause,
-    IcoRefresh
+    IcoRefresh,
+    VolumeControlBar
   },
   data() {
     return {
@@ -39,8 +41,24 @@ export default {
 }
 </script>
 
-<style lang="stylus" scoped>
+<style lang="stylus">
+.pc-video-control-bar-icon
+  display flex
+  align-items center
+  justify-content center
+  width 24px
+  height 24px
 
+  margin-right 6px
+  svg
+    height 100%
+    width 100%
+    fill #999999
+    &:hover
+      fill #ffffff
+</style>
+
+<style lang="stylus" scoped>
 .control-bar
   width: 100%;
   height: 40px;
@@ -50,18 +68,8 @@ export default {
   justify-content: space-around;
   align-items: center;
 
-  > .control-bar-icon
-    display flex
-    align-items center
-    justify-content center
-    width 24px
-    height 24px
-
-    margin-right 6px
-    svg
-      height 100%
-      width 100%
-      fill #999999
+  padding-left 18px
+  padding-right 18px
   > .control-bar-space
     flex 1
 </style>
