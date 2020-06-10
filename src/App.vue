@@ -1,9 +1,22 @@
 <template>
   <div id="app">
-    <img class="logo" alt="Vue logo" src="./assets/logo.png">
-    <StatusBox />
-    <ProgressBar />
-    <ControlBar />
+    <section class="demo">
+      <h3>播放或是暫停</h3>
+      <StatusBox />
+      <h3>進度條</h3>
+      <ProgressBar />
+      <h3>控制條</h3>
+      <ControlBar />
+    </section>
+    <hr>
+
+    <section class="demo">
+      <VideoPlayer width="560" src="https://www.w3schools.com/html/mov_bbb.mp4">
+        <StatusBox />
+        <ControlBar />
+        <ProgressBar />
+      </VideoPlayer>
+    </section>
   </div>
 </template>
 
@@ -12,12 +25,15 @@ import StatusBox from './components/VideoPlayer/StatusBox'
 import ProgressBar from './components/VideoPlayer/ProgressBar'
 import ControlBar from './components/VideoPlayer/ControlBar'
 
+import VideoPlayer from './components/VideoPlayer'
+
 export default {
   name: 'App',
   components: {
     StatusBox,
     ProgressBar,
-    ControlBar
+    ControlBar,
+    VideoPlayer
   }
 }
 </script>
@@ -42,4 +58,15 @@ body {
   width: 36px;
   height: 36px;
 }
+
+h3 {
+  margin-top: 6px;
+  margin-bottom:2px;
+}
+.demo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 </style>

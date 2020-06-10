@@ -30,6 +30,7 @@ import IcoVolumeMin from '../../icons/IcoVolumeMin'
  * 大網比較適用放這個元件，空間比較大
  */
 export default {
+  name: 'VolumeControlBar',
   components: {
     IcoVolumeMax,
     IcoVolumeMed,

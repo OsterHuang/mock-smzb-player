@@ -15,7 +15,7 @@
 
 <script>
 export default {
-
+  name: 'ResolutionPicker'
 }
 </script>
 
@@ -39,6 +39,7 @@ export default {
   .resolution-picker-modal
     display none
     position absolute
+    z-index 80
     bottom 20px
     right 8px
     padding-bottom 16px
@@ -64,8 +65,6 @@ export default {
           border none
           background 0 0
           color #939393
-          &:hover
+          &:hover, &:active
             color white
-
-
 </style>

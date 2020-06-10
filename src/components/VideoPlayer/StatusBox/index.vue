@@ -21,10 +21,10 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
-.status-box 
+.status-box
   width 60px
   height 60px
   > img
-    width 48px
-    height 48px
+    width 100%
+    height 100%
 </style>

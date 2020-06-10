@@ -11,6 +11,7 @@ import IcoPlay from '../../icons/IcoPlay'
 import IcoPause from '../../icons/IcoPause'
 
 export default {
+  name: 'PlayPauseBarIcon',
   components: {
     IcoPlay,
     IcoPause
