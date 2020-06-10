@@ -65,7 +65,7 @@ export default {
       return this.barValue < 55 && this.barValue >= 2
     },
     isMin() {
-      return this.barValue <= 2
+      return this.barValue < 2
     }
   },
   methods: {

@@ -11,6 +11,10 @@
     <div class="control-bar-space" />
     <VolumeControlBar />
     <ResolutionPicker />
+    <div class="pc-video-control-bar-icon" @click="onToggleScreen">
+      <IcoMaxScreen v-if="isFullScreen" />
+      <IcoMinScreen v-else />
+    </div>
   </div>
 </template>
 
@@ -22,6 +26,8 @@ import IcoPause from '../icons/IcoPause'
 import IcoRefresh from '../icons/IcoRefresh'
 import VolumeControlBar from './components/VolumeControlBar'
 import ResolutionPicker from './components/ResolutionPicker'
+import IcoMaxScreen from '../icons/IcoMaxScreen'
+import IcoMinScreen from '../icons/IcoMinScreen'
 
 export default {
   components: {
@@ -30,22 +36,29 @@ export default {
     IcoPause,
     IcoRefresh,
     VolumeControlBar,
-    ResolutionPicker
+    ResolutionPicker,
+    IcoMaxScreen,
+    IcoMinScreen
   },
   data() {
     return {
-      isPlaying: true
+      isPlaying: true,
+      isFullScreen: false
     }
   },
   methods: {
     onTogglePlayPause() {
       this.isPlaying = !this.isPlaying
+    },
+    onToggleScreen() {
+      this.isFullScreen = !this.isFullScreen
     }
   }
 }
 </script>
 
 <style lang="stylus">
+// 共用css 最好是拉個mixins
 .pc-video-control-bar-icon
   display flex
   align-items center
@@ -72,7 +85,7 @@ export default {
   justify-content: space-around;
   align-items: center;
 
-  > .padding-at-start
+  > .padding-at-start, .padding-at-end
     width 12px
 
   > .control-bar-space

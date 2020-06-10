@@ -2,7 +2,13 @@
   <div class="resolution-picker">
     <span>高清</span>
     <div class="resolution-picker-modal">
-      彈出來
+      <div class="resolution-picker-modal-content">
+        <div class="title">畫質</div>
+        <div class="option">
+          <button>高清</button>
+          <button>順暢</button>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -33,5 +39,33 @@ export default {
   .resolution-picker-modal
     display none
     position absolute
+    bottom 20px
+    right 8px
+    padding-bottom 16px
+
+    .resolution-picker-modal-content
+      display flex
+      min-width 100px
+      background-color rgba(0, 0, 0, 0.8)
+      border-color #ffffff
+      border-radius 10px
+      padding 10px
+      .title
+        margin-top 4px
+        flex 1
+        color #939393
+        font-size 16px
+      .option
+        flex 1
+        button
+          margin-bottom 6px
+          text-align center
+          cursor pointer
+          border none
+          background 0 0
+          color #939393
+          &:hover
+            color white
+
 
 </style>
