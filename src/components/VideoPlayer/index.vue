@@ -27,6 +27,11 @@ export default {
       if (!x.componentInstance.videoInit) return
       x.componentInstance.videoInit(this.$refs.video)
     })
+  },
+  methods: {
+    referVideo() {
+      return this.$refs.video
+    }
   }
 }
 </script>

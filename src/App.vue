@@ -11,11 +11,18 @@
     <hr>
 
     <section class="demo">
-      <VideoPlayer width="560" src="https://www.w3schools.com/html/mov_bbb.mp4">
+      <VideoPlayer ref="videoPlayer" width="560" src="https://www.w3schools.com/html/mov_bbb.mp4">
         <StatusBox />
         <ControlBar />
         <ProgressBar />
       </VideoPlayer>
+
+      <div class="external-control-panel">
+        <button @click="handlePlay">播放</button>
+        <button @click="handlePause">暫停</button>
+        <button @click="handleVolumeMax">音量全開</button>
+        <button @click="handleVolumeMin">靜音</button>
+      </div>
     </section>
   </div>
 </template>
@@ -34,6 +41,21 @@ export default {
     ProgressBar,
     ControlBar,
     VideoPlayer
+  },
+  methods: {
+    handlePlay() {
+      console.log(this.$refs.videoPlayer)
+      this.$refs.videoPlayer.referVideo().play()
+    },
+    handlePause() {
+      this.$refs.videoPlayer.referVideo().pause()
+    },
+    handleVolumeMax() {
+      this.$refs.videoPlayer.referVideo().volume = 1
+    },
+    handleVolumeMin() {
+      this.$refs.videoPlayer.referVideo().volume = 0
+    }
   }
 }
 </script>

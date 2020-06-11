@@ -1,6 +1,6 @@
 <template>
   <div class="volume-control-bar">
-    <div class="volume-control-bar-icon pc-video-control-bar-icon" @click="onToggleVolume">
+    <div class="volume-control-bar-icon pc-video-control-bar-icon" @click="handleToggleVolume">
       <IcoVolumeMax v-if="isMax" />
       <IcoVolumeMed v-if="isMed" />
       <IcoVolumeLow v-if="isLow" />
@@ -14,8 +14,6 @@
       max="100"
       step="1"
       :style="slideBackground"
-      @touchstart="onTouchStart"
-      @touchend="onTouchEnd"
     >
   </div>
 </template>
@@ -38,15 +36,15 @@ export default {
     IcoVolumeMin
   },
   props: {
-    volume: {
+    value: {
       type: Number,
       default: 60
     }
   },
   data() {
     return {
-      barValue: this.volume,
-      previousBarValue: this.volume
+      barValue: this.value,
+      previousBarValue: this.value
     }
   },
   computed: {
@@ -69,10 +67,16 @@ export default {
       return this.barValue < 2
     }
   },
+  watch: {
+    barValue(newValue) {
+      this.$emit('input', +newValue)
+    },
+    value(newValue) {
+      this.barValue = newValue
+    }
+  },
   methods: {
-    onTouchStart() {},
-    onTouchEnd() {},
-    onToggleVolume() {
+    handleToggleVolume() {
       if (this.barValue >= 2) {
         this.previousBarValue = this.barValue
         this.barValue = 0

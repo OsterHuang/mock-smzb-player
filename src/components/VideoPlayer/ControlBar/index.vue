@@ -1,17 +1,17 @@
 <template>
   <div class="control-bar">
     <div class="padding-at-start" />
-    <div class="pc-video-control-bar-icon" @click="onTogglePlayPause">
-      <IcoPlay v-if="isPlaying" />
-      <IcoPause v-else />
+    <div class="pc-video-control-bar-icon" @click="handleTogglePlayPause">
+      <IcoPause v-if="isPlaying" />
+      <IcoPlay v-else />
     </div>
     <div class="pc-video-control-bar-icon">
       <IcoRefresh />
     </div>
     <div class="control-bar-space" />
-    <VolumeControlBar />
+    <VolumeControlBar v-model="volumeValue" />
     <ResolutionPicker />
-    <div class="pc-video-control-bar-icon" @click="onToggleScreen">
+    <div class="pc-video-control-bar-icon" @click="handleToggleScreen">
       <IcoMaxScreen v-if="isFullScreen" />
       <IcoMinScreen v-else />
     </div>
@@ -19,8 +19,6 @@
 </template>
 
 <script>
-// import PlayPauseBarIcon from './components/PlayPauseBarIcon'
-
 import IcoPlay from '../icons/IcoPlay'
 import IcoPause from '../icons/IcoPause'
 import IcoRefresh from '../icons/IcoRefresh'
@@ -42,15 +40,34 @@ export default {
   },
   data() {
     return {
-      isPlaying: true,
-      isFullScreen: false
+      isPlaying: false,
+      isFullScreen: false,
+      volumeValue: 40
+    }
+  },
+  watch: {
+    volumeValue(newVal, oldVal) {
+      if (!this.video) return
+      if (newVal === oldVal) return
+
+      this.video.volume = newVal / 100
     }
   },
   methods: {
-    onTogglePlayPause() {
-      this.isPlaying = !this.isPlaying
+    videoInit(video) {
+      this.video = video
+
+      this.video.addEventListener('playing', () => { this.isPlaying = true })
+      this.video.addEventListener('pause', () => { this.isPlaying = false })
+      this.video.addEventListener('volumechange', evt => { this.volumeValue = evt.target.volume * 100 })
     },
-    onToggleScreen() {
+    handleTogglePlayPause() {
+      if (!this.video) return
+
+      if (this.isPlaying) this.video.pause()
+      else this.video.play()
+    },
+    handleToggleScreen() {
       this.isFullScreen = !this.isFullScreen
       this.isFullScreen = !this.isFullScreen
       // if (this.isFullScreen) {
