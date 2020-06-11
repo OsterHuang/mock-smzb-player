@@ -5,11 +5,13 @@
       class="progress-bar-slider"
       type="range"
       min="0"
-      max="100"
+      max="2000"
       step="1"
       :style="slideBackground"
-      @touchstart="onTouchStart"
-      @touchend="onTouchEnd"
+      @mousedown="handleTouchStart"
+      @mouseup="handleTouchEnd"
+      @touchstart="handleTouchStart"
+      @touchend="handleTouchEnd"
     >
   </div>
 </template>
@@ -19,15 +21,25 @@ export default {
   name: 'ProgressBar',
   data() {
     return {
-      barValue: 0,
+      isTouchStart: false,
+      barValue: 0
     }
   },
   computed: {
     slideBackground() {
-      return `background-image: -webkit-linear-gradient(left, #c30101 0%, #c30101 ${this.barValue}%, #fff ${this.barValue}%, #fff 100%);
-        -moz-linear-gradient(left, #c30101 0%, #c30101 ${this.barValue}%, #fff ${this.barValue}%, #fff 100%);
-        -ms-linear-gradient(left, #c30101 0%, #c30101 ${this.barValue}%, #fff ${this.barValue}%, #fff 100%);
+      const showValue = this.barValue / 20
+      return `background-image: -webkit-linear-gradient(left, #c30101 0%, #c30101 ${showValue}%, #fff ${showValue}%, #fff 100%);
+        -moz-linear-gradient(left, #c30101 0%, #c30101 ${showValue}%, #fff ${showValue}%, #fff 100%);
+        -ms-linear-gradient(left, #c30101 0%, #c30101 ${showValue}%, #fff ${showValue}%, #fff 100%);
       `
+    }
+  },
+  watch: {
+    barValue(newVal = 0) {
+      if (!this.video) return
+      if (!this.isTouchStart) return
+
+      this.video.currentTime = newVal * this.video.duration / 2000
     }
   },
   mounted() {
@@ -35,21 +47,41 @@ export default {
     this.barValue = 40
   },
   methods: {
-    onTouchStart() {},
-    onTouchEnd() {}
+    videoInit(video) {
+      this.video = video
+
+      this.psInterval = setInterval(this.handleEveryTick, 50)
+    },
+    handleTouchStart() {
+      this.isTouchStart = true
+      if (!this.video) return
+      this.video.pause()
+    },
+    handleTouchEnd() {
+      this.isTouchStart = false
+      if (!this.video) return
+      this.video.play()
+    },
+    handleEveryTick() {
+      if (this.isTouchStart) return
+      this.barValue = Math.floor((this.video.currentTime / this.video.duration) * 2000)
+    }
   }
 }
 </script>
 
 <style lang="stylus" scoped>
-thumb-class()
+no-default-appearance()
   -webkit-appearance: none;
+  -moz-appearance: none;
+  -ms-appearance: none;
+thumb-class()
   width: 15px;
   height: 15px;
   background: #f4f4f4;
   border: 1px solid #aaa;
   border-radius: 50%;
-  transition: 0.1s;
+  // transition: all 0.1s;
   cursor: pointer;
   &:hover
     width: 15px;
@@ -60,22 +92,28 @@ thumb-class()
   width 100%
   height 19px
   .progress-bar-slider
-    -webkit-appearance: none;
+    no-default-appearance()
     outline: none;
     width: 100%;
     height: 3px;
     margin: 0px;
-    transition: 0.1s;
+    // transition: all 0.1s;
     position: relative;
     top: 3px;
     &::-webkit-slider-thumb
-      thumb-class()
+      -webkit-appearance: none;
     &::-moz-range-thumb
-      thumb-class()
+      -moz-appearance: none;
     &::-ms-thumb
-      thumb-class()
+      -ms-appearance: none;
 
     &:hover
       height: 5px;
+      &::-webkit-slider-thumb
+        thumb-class()
+      &::-moz-range-thumb
+        thumb-class()
+      &::-ms-thumb
+        thumb-class()
 
 </style>

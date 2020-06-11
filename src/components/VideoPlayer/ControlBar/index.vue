@@ -52,6 +52,18 @@ export default {
     },
     onToggleScreen() {
       this.isFullScreen = !this.isFullScreen
+      this.isFullScreen = !this.isFullScreen
+      // if (this.isFullScreen) {
+      //   if (video.webkitRequestFullscreen) video.webkitRequestFullscreen()
+      //   else if (video.mozRequestFullScreen) video.mozRequestFullScreen()
+      //   else if (video.msRequestFullscreen) video.msRequestFullscreen()
+      //   else if (video.requestFullscreen) video.requestFullscreen()
+      // } else {
+      //   if (video.webkitExitFullscreen) video.webkitExitFullscreen()
+      //   else if (video.mozCancelFullScreen) video.mozCancelFullScreen()
+      //   else if (video.msExitFullscreen) video.msExitFullscreen()
+      //   else if (video.exitFullscreen) video.exitFullscreen()
+      // }
     }
   }
 }
@@ -79,7 +91,7 @@ export default {
 .control-bar
   width: 100%;
   height: 40px;
-  background-color: rgba(0, 0, 0, 0.8);
+  background-color: rgba(0, 0, 0, 0.7);
 
   display: inline-flex;
   justify-content: space-around;

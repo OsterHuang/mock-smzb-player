@@ -22,11 +22,11 @@ export default {
   },
   mounted() {
     console.log(this.$slots)
-  },
-  methods: {
-    videoRef() {
-      return this.$refs.video
-    }
+    this.$slots.default.forEach(x => {
+      // console.log(x, x.context, x.context.videoInit, this.$refs.video)
+      if (!x.componentInstance.videoInit) return
+      x.componentInstance.videoInit(this.$refs.video)
+    })
   }
 }
 </script>

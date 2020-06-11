@@ -1,20 +1,45 @@
 <template>
   <div class="status-box" @click="handleToggle">
-    <img v-show="status === 'play'" src="../icons/ico-circle-play.svg">
-    <img v-show="status === 'pause'" src="../icons/ico-circle-pause.svg">
+    <!-- <img v-show="status === 'play'" src="../icons/ico-circle-play.svg">
+    <img v-show="status === 'pause'" src="../icons/ico-circle-pause.svg"> -->
+    <IcoCirclePlay v-show="status === 'pause'" />
+    <IcoCirclePause v-show="status === 'playing'" />
   </div>
 </template>
 
 <script>
+import IcoCirclePlay from '../icons/IcoCirclePlay'
+import IcoCirclePause from '../icons/IcoCirclePause'
+
 export default {
+  components: {
+    IcoCirclePlay,
+    IcoCirclePause
+  },
   data() {
     return {
-      status: 'play' // play, pause, loading
+      status: 'pause' // playing, pause, loading
     }
   },
   methods: {
+    videoInit(video) {
+      this.video = video
+
+      this.video.addEventListener('playing', this.onPlaying)
+      this.video.addEventListener('pause', this.onPause)
+    },
     handleToggle() {
-      this.status = this.status === 'play' ? 'pause' : 'play'
+      if (this.status === 'playing') {
+        this.video.pause()
+      } else {
+        this.video.play()
+      }
+    },
+    onPlaying() {
+      this.status = 'playing'
+    },
+    onPause() {
+      this.status = 'pause'
     }
   }
 }
@@ -24,7 +49,8 @@ export default {
 .status-box
   width 60px
   height 60px
-  > img
+  > img, svg
     width 100%
     height 100%
+    fill white
 </style>
