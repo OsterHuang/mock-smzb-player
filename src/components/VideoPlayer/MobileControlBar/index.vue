@@ -84,7 +84,7 @@ export default {
 }
 </script>
 
-<style lang="stylus">
+<style lang="stylus" scoped>
 // 共用css 最好是拉個mixins
 .pc-video-control-bar-icon
   display flex
